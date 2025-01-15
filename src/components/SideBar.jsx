@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Profiler } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import {
@@ -10,6 +10,8 @@ import {
   ClipboardList,
   
 } from "lucide-react";
+
+import profile from "../assets/Profile.png"
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -28,12 +30,13 @@ export function Sidebar() {
     "flex items-center px-4 py-2 rounded-lg text-sm w-full hover:bg-gray-100 transition-colors";
 
   return (
-    <div className="w-64 bg-[#EEF6EF] h-full
+    <div className=" w-64 bg-[#EEF6EF] h-full
      p-4 flex flex-col">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-12 h-12 rounded-full overflow-hidden">
+      <div className="flex flex-col
+       items-center gap-3 mb-6">
+        <div className="w-24 h-24 rounded-full overflow-hidden">
           <img
-            src="/api/placeholder/48/48"
+            src={profile}
             alt="Profile"
             className="w-full h-full object-cover"
           />

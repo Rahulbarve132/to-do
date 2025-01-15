@@ -9,6 +9,7 @@ import {
   Search,
   Star,
   List,
+  Sun,
 } from "lucide-react";
 
 export default function TodoList({ toggleSidebar }) {
@@ -31,6 +32,7 @@ export default function TodoList({ toggleSidebar }) {
 
   const [newTask, setNewTask] = useState("");
   const [isGridView, setIsGridView] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const addTask = () => {
     if (newTask.trim()) {
@@ -59,12 +61,14 @@ export default function TodoList({ toggleSidebar }) {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <header className="border-b">
+    <div
+      className={`min-h-screen ${isDarkMode ? "bg-[#1F1F1F] text-white" : "bg-white text-black"}`}
+    >
+      <header className="">
         <div className="container mx-auto px-4 py-2 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Menu
-              className="h-6 w-6 text-gray-500 cursor-pointer"
+              className="h-6 w-6 cursor-pointer"
               onClick={toggleSidebar}
             />
             <div className="flex items-center gap-2">
@@ -75,31 +79,45 @@ export default function TodoList({ toggleSidebar }) {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <Search className="h-5 w-5 text-gray-500" />
+            <Search className="h-5 w-5" />
             {isGridView ? (
               <List
-                className="h-5 w-5 text-gray-500 cursor-pointer "
+                className="h-5 w-5 cursor-pointer"
                 onClick={() => setIsGridView((prev) => !prev)}
               />
             ) : (
               <Grid
-                className="h-5 w-5 text-gray-500 cursor-pointer"
+                className="h-5 w-5 cursor-pointer"
                 onClick={() => setIsGridView((prev) => !prev)}
               />
             )}
 
-            <Moon className="h-5 w-5 text-gray-500" />
+            {isDarkMode ? (
+              <Sun
+                className="h-5 w-5 cursor-pointer"
+                onClick={() => setIsDarkMode(false)}
+              />
+            ) : (
+              <Moon
+                className="h-5 w-5 cursor-pointer"
+                onClick={() => setIsDarkMode(true)}
+              />
+            )}
           </div>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-6">
         <div className="mb-8">
-          <select className="mb-4 text-sm text-gray-600 border-none focus:ring-0">
-            <option>All Tasks</option>
-          </select>
+          <div className="mb-4 text-sm ">
+            <div className="">All Tasks</div>
+          </div>
 
-          <div className="bg-green-50 rounded-lg p-4 mb-6">
+          <div
+            className={`${
+              isDarkMode ? "bg-[#2E2E2E]" : "bg-green-50"
+            } rounded-lg p-4 mb-6`}
+          >
             <input
               type="text"
               placeholder="Add A Task"
@@ -109,9 +127,9 @@ export default function TodoList({ toggleSidebar }) {
             />
             <div className="flex items-center justify-between mt-2">
               <div className="flex items-center gap-4">
-                <Bell className="h-5 w-5 text-gray-700" />
-                <RefreshCw className="h-5 w-5 text-gray-700" />
-                <Calendar className="h-5 w-5 text-gray-700" />
+                <Bell className="h-5 w-5" />
+                <RefreshCw className="h-5 w-5" />
+                <Calendar className="h-5 w-5" />
               </div>
               <button
                 onClick={addTask}
@@ -123,9 +141,7 @@ export default function TodoList({ toggleSidebar }) {
           </div>
 
           <div>
-            <h2 className="text-sm font-medium text-gray-500 mb-4">
-              Incomplete Tasks
-            </h2>
+            <h2 className="text-sm font-medium mb-4">Incomplete Tasks</h2>
             <div
               className={`${
                 isGridView
@@ -138,7 +154,11 @@ export default function TodoList({ toggleSidebar }) {
                 .map((task) => (
                   <div
                     key={task.id}
-                    className="py-1 rounded-lg  flex items-center justify-between"
+                    className={`py-1 flex items-center justify-between ${
+                      isGridView
+                        ? "border py-8 border-[#808080] px-4"
+                        : ""
+                    }`}
                   >
                     <div className="flex items-center gap-3">
                       <input
@@ -147,7 +167,7 @@ export default function TodoList({ toggleSidebar }) {
                         onChange={() => toggleComplete(task.id)}
                         className="form-checkbox"
                       />
-                      <span className="text-gray-700">{task.text}</span>
+                      <span>{task.text}</span>
                     </div>
                     <button onClick={() => toggleStar(task.id)}>
                       <Star
@@ -164,9 +184,7 @@ export default function TodoList({ toggleSidebar }) {
           </div>
 
           <div className="mt-8">
-            <h2 className="text-sm font-medium text-gray-500 mb-4">
-              Completed Tasks
-            </h2>
+            <h2 className="text-sm font-medium mb-4">Completed Tasks</h2>
             <div className="space-y-4">
               {tasks
                 .filter((task) => task.completed)
@@ -182,9 +200,7 @@ export default function TodoList({ toggleSidebar }) {
                         onChange={() => toggleComplete(task.id)}
                         className="form-checkbox accent-green-600"
                       />
-                      <span className="text-gray-400 line-through">
-                        {task.text}
-                      </span>
+                      <span className="line-through">{task.text}</span>
                     </div>
                     <button onClick={() => toggleStar(task.id)}>
                       <Star
