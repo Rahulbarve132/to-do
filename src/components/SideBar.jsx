@@ -28,7 +28,8 @@ export function Sidebar() {
     "flex items-center px-4 py-2 rounded-lg text-sm w-full hover:bg-gray-100 transition-colors";
 
   return (
-    <div className="w-64 bg-[#EEF6EF] h-screen p-4 flex flex-col">
+    <div className="w-64 bg-[#EEF6EF] h-full
+     p-4 flex flex-col">
       <div className="flex items-center gap-3 mb-6">
         <div className="w-12 h-12 rounded-full overflow-hidden">
           <img

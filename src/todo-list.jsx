@@ -8,6 +8,7 @@ import {
   RefreshCw,
   Search,
   Star,
+  List,
 } from "lucide-react";
 
 export default function TodoList({ toggleSidebar }) {
@@ -15,7 +16,12 @@ export default function TodoList({ toggleSidebar }) {
     { id: 1, text: "Buy groceries", completed: false, starred: false },
     { id: 2, text: "Finish project report", completed: false, starred: true },
     { id: 3, text: "Call the bank", completed: false, starred: false },
-    { id: 4, text: "Schedule dentist appointment", completed: false, starred: false },
+    {
+      id: 4,
+      text: "Schedule dentist appointment",
+      completed: false,
+      starred: false,
+    },
     { id: 5, text: "Plan weekend trip", completed: false, starred: false },
     { id: 6, text: "Read a book", completed: true, starred: false },
     { id: 7, text: "Clean the house", completed: true, starred: false },
@@ -24,6 +30,7 @@ export default function TodoList({ toggleSidebar }) {
   ]);
 
   const [newTask, setNewTask] = useState("");
+  const [isGridView, setIsGridView] = useState(false);
 
   const addTask = () => {
     if (newTask.trim()) {
@@ -69,7 +76,18 @@ export default function TodoList({ toggleSidebar }) {
           </div>
           <div className="flex items-center gap-4">
             <Search className="h-5 w-5 text-gray-500" />
-            <Grid className="h-5 w-5 text-gray-500" />
+            {isGridView ? (
+              <List
+                className="h-5 w-5 text-gray-500 cursor-pointer "
+                onClick={() => setIsGridView((prev) => !prev)}
+              />
+            ) : (
+              <Grid
+                className="h-5 w-5 text-gray-500 cursor-pointer"
+                onClick={() => setIsGridView((prev) => !prev)}
+              />
+            )}
+
             <Moon className="h-5 w-5 text-gray-500" />
           </div>
         </div>
@@ -78,22 +96,22 @@ export default function TodoList({ toggleSidebar }) {
       <main className="container mx-auto px-4 py-6">
         <div className="mb-8">
           <select className="mb-4 text-sm text-gray-600 border-none focus:ring-0">
-            <option>To Do</option>
+            <option>All Tasks</option>
           </select>
 
-          <div className="bg-gray-50 rounded-lg p-4 mb-6">
+          <div className="bg-green-50 rounded-lg p-4 mb-6">
             <input
               type="text"
               placeholder="Add A Task"
               value={newTask}
               onChange={(e) => setNewTask(e.target.value)}
-              className="w-full bg-transparent border-none text-lg placeholder:text-gray-400 outline-none focus-visible:ring-0 p-2"
+              className="w-full bg-transparent border-none text-lg placeholder:text-gray-700 outline-none focus-visible:ring-0 p-2"
             />
             <div className="flex items-center justify-between mt-2">
               <div className="flex items-center gap-4">
-                <Bell className="h-5 w-5 text-gray-400" />
-                <RefreshCw className="h-5 w-5 text-gray-400" />
-                <Calendar className="h-5 w-5 text-gray-400" />
+                <Bell className="h-5 w-5 text-gray-700" />
+                <RefreshCw className="h-5 w-5 text-gray-700" />
+                <Calendar className="h-5 w-5 text-gray-700" />
               </div>
               <button
                 onClick={addTask}
@@ -103,68 +121,83 @@ export default function TodoList({ toggleSidebar }) {
               </button>
             </div>
           </div>
-          <div className="space-y-4">
-            {tasks
-              .filter((task) => !task.completed)
-              .map((task) => (
-                <div
-                  key={task.id}
-                  className="flex items-center justify-between group"
-                >
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="checkbox"
-                      checked={task.completed}
-                      onChange={() => toggleComplete(task.id)}
-                      className="form-checkbox"
-                    />
-                    <span className="text-gray-700">{task.text}</span>
+
+          <div>
+            <h2 className="text-sm font-medium text-gray-500 mb-4">
+              Incomplete Tasks
+            </h2>
+            <div
+              className={`${
+                isGridView
+                  ? "grid gap-4 grid-cols-2 sm:grid-cols-3"
+                  : "space-y-4"
+              }`}
+            >
+              {tasks
+                .filter((task) => !task.completed)
+                .map((task) => (
+                  <div
+                    key={task.id}
+                    className="py-1 rounded-lg  flex items-center justify-between"
+                  >
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="checkbox"
+                        checked={task.completed}
+                        onChange={() => toggleComplete(task.id)}
+                        className="form-checkbox"
+                      />
+                      <span className="text-gray-700">{task.text}</span>
+                    </div>
+                    <button onClick={() => toggleStar(task.id)}>
+                      <Star
+                        className={`h-5 w-5 ${
+                          task.starred
+                            ? "fill-yellow-400 text-yellow-400"
+                            : "text-gray-300"
+                        }`}
+                      />
+                    </button>
                   </div>
-                  <button onClick={() => toggleStar(task.id)}>
-                    <Star
-                      className={`h-5 w-5 ${
-                        task.starred
-                          ? "fill-yellow-400 text-yellow-400"
-                          : "text-gray-300"
-                      }`}
-                    />
-                  </button>
-                </div>
-              ))}
+                ))}
+            </div>
           </div>
-        </div>
-        <div>
-          <h2 className="text-sm font-medium text-gray-500 mb-4">Completed</h2>
-          <div className="space-y-4">
-            {tasks
-              .filter((task) => task.completed)
-              .map((task) => (
-                <div
-                  key={task.id}
-                  className="flex items-center justify-between group"
-                >
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="checkbox"
-                      checked={task.completed}
-                      onChange={() => toggleComplete(task.id)}
-                      className="form-checkbox"
-                    />
-                    <span className="text-gray-400 line-through">
-                      {task.text}
-                    </span>
+
+          <div className="mt-8">
+            <h2 className="text-sm font-medium text-gray-500 mb-4">
+              Completed Tasks
+            </h2>
+            <div className="space-y-4">
+              {tasks
+                .filter((task) => task.completed)
+                .map((task) => (
+                  <div
+                    key={task.id}
+                    className="p-1 rounded-lg flex items-center justify-between"
+                  >
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="checkbox"
+                        checked={task.completed}
+                        onChange={() => toggleComplete(task.id)}
+                        className="form-checkbox accent-green-600"
+                      />
+                      <span className="text-gray-400 line-through">
+                        {task.text}
+                      </span>
+                    </div>
+                    <button onClick={() => toggleStar(task.id)}>
+                      <Star
+                        className={`h-5 w-5 ${
+                          task.starred
+                            ? "fill-yellow-400 text-yellow-400"
+                            : "text-gray-300"
+                        }`}
+                      />
+                    </button>
                   </div>
-                  <button onClick={() => toggleStar(task.id)}>
-                    <Star
-                      className={`h-5 w-5 ${
-                        task.starred
-                          ? "fill-yellow-400 text-yellow-400"
-                          : "text-gray-300"
-                      }`}
-                    />
-                  </button>
-                </div>
-              ))}
+                ))}
+            </div>
           </div>
         </div>
       </main>
