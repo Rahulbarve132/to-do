@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Sidebar Opening (Enter) */
+.sidebar-enter {
+    transform: translateX(-100%); /* Start off-screen */
+    transition: transform 0.3s ease-in-out; /* Smooth transition */
+  }
+  
+  .sidebar-enter-active {
+    transform: translateX(0); /* Fully visible */
+  }
+  
+  /* Sidebar Closing (Exit) */
+  .sidebar-exit {
+    transform: translateX(0); /* Fully visible */
+    transition: transform 0.3s ease-in-out; /* Smooth transition */
+  }
+  
+  .sidebar-exit-active {
+    transform: translateX(-100%); /* Moves off-screen */
+  }
+  
