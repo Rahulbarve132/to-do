@@ -1,51 +1,40 @@
-# To-Do List Application
+# To-Do List
 
-## Overview
-This is a To-Do List web application built using **React, Redux Toolkit, and Vite**. It includes features such as **task management, a weather API integration, chart visualization, a calendar, and a time picker**. The application provides a responsive and smooth user experience with modern UI components.
+A simple To-Do List application built with React, Redux, and Vite. This application helps users manage their tasks efficiently with features like task scheduling, reminders, and data visualization.
 
 ## Features
-- **Task Management**: Add, update, delete, and mark tasks as completed.
-- **Weather API Integration**: Displays real-time weather updates.
-- **Chart Visualization**: Uses Chart.js to display data insights.
-- **Calendar & Time Picker**: Schedule tasks efficiently.
-- **Smooth Animations**: Uses React Transition Group for UI effects.
-- **State Management**: Redux Toolkit for handling global state.
-- **Modern UI**: Styled with Tailwind CSS.
-
-## Technologies Used
-- **React** (UI development)
-- **Redux Toolkit** (State management)
-- **Vite** (Fast build tool)
-- **Chart.js & React Chart.js 2** (Data visualization)
-- **React Calendar & React Time Picker** (Scheduling tasks)
-- **Lucide React** (Icon library)
-- **Tailwind CSS** (Styling framework)
-- **Weather API** (Fetches real-time weather data)
-- **ESLint** (Code linting and best practices)
+- Task management with Redux
+- Calendar integration for task scheduling
+- Chart visualization using Chart.js
+- Time picker for setting reminders
+- Smooth animations with React Transition Group
+- Styled with Tailwind CSS
 
 ## Prerequisites
 Ensure you have the following installed:
-- **Node.js** (LTS version recommended)
-- **npm** or **yarn** (Package manager)
+- [Node.js](https://nodejs.org/) (v16 or later recommended)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
-## Installation
-1. Clone the repository:
-   ```sh
-   git clone <repository-url>
-   cd to-do-list
-   ```
-2. Install dependencies:
-   ```sh
-   npm install
-   ```
-   or
-   ```sh
-   yarn install
-   ```
+## Setup Instructions
 
-## Running the Application
-### Development Mode
-Start the development server:
+### 1. Clone the Repository
+```sh
+git clone <repository-url>
+cd to-do-list
+```
+
+### 2. Install Dependencies
+Using npm:
+```sh
+npm install
+```
+Using yarn:
+```sh
+yarn install
+```
+
+### 3. Run the Development Server
+To start the development server, run:
 ```sh
 npm run dev
 ```
@@ -53,10 +42,10 @@ or
 ```sh
 yarn dev
 ```
-Open the provided local URL (e.g., `http://localhost:5173/`) in your browser.
+The application will be available at `http://localhost:5173/` (or another available port).
 
-### Build for Production
-To generate an optimized production build:
+### 4. Build for Production
+To create a production build, run:
 ```sh
 npm run build
 ```
@@ -65,8 +54,8 @@ or
 yarn build
 ```
 
-### Preview Production Build
-To preview the built files locally:
+### 5. Preview the Production Build
+To preview the built project:
 ```sh
 npm run preview
 ```
@@ -75,8 +64,8 @@ or
 yarn preview
 ```
 
-## Linting
-Check for code style issues and fix them using ESLint:
+### 6. Linting the Code
+To check for linting issues:
 ```sh
 npm run lint
 ```
@@ -85,8 +74,28 @@ or
 yarn lint
 ```
 
+## Technologies Used
+- React
+- Redux Toolkit
+- Vite
+- Tailwind CSS
+- Chart.js
+- React Calendar
+- React Time Picker
+- React Transition Group
 
----
 
-### 🚀 Happy Coding!
+![Task Manager Screenshot](src/assets/image.png)
+![Task Manager Screenshot](src/assets/image1.png)
+![Task Manager Screenshot](src/assets/image2.png)
+![Task Manager Screenshot](src/assets/image3.png)
+
+
+
+
+## Contributing
+Feel free to fork the repository and submit pull requests for improvements.
+
+## Contact
+For any questions or issues, please reach out via rahulbarve132@gmail.com.
 
