@@ -1,19 +1,23 @@
 import { useDispatch, useSelector } from "react-redux";
-import { toggleDarkMode, toggleGridView, selectIsGridView, selectIsDarkMode } from "../utils/TaskSlice";
+import { toggleDarkMode, toggleGridView, selectIsGridView, selectIsDarkMode, toggleOpen, selectIsSidebarOpen } from "../utils/TaskSlice";
 import { Menu, Search, Grid, List, Sun, Moon } from "lucide-react";
 
-export default function Header({ toggleSidebar }) {
+export default function Header() {
   const dispatch = useDispatch();
-  
+
   // Get values from Redux store
   const isGridView = useSelector(selectIsGridView);
   const isDarkMode = useSelector(selectIsDarkMode);
+  const isSidebarOpen = useSelector(selectIsSidebarOpen); // Get sidebar state
 
   return (
     <header className={`w-full ${isDarkMode ? "bg-[#242424] text-white" : "bg-white text-black"}`}>
       <div className="mx-auto w-full px-4 py-2 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Menu className="h-6 w-6 cursor-pointer" onClick={toggleSidebar} />
+          <Menu 
+            className={`h-6 w-6 cursor-pointer ${isSidebarOpen ? "text-green-500" : "text-gray-500"}`} 
+            onClick={() => dispatch(toggleOpen())} 
+          />
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 bg-green-600 rounded flex items-center justify-center">
               <span className="text-white text-sm">D</span>

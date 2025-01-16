@@ -155,9 +155,13 @@ const taskSlice = createSlice({
     isAssignedToMe: false,
     taskDetail: false,
     selectedTask: null,
+    isSidebarOpen: false,
   },
   
   reducers: {
+    toggleOpen: (state) => {
+        state.isSidebarOpen = !state.isSidebarOpen; // Toggle the value
+      },
     toggleTaskDetail: (state) => {
       state.taskDetail = !state.taskDetail;
     },
@@ -272,6 +276,7 @@ const taskSlice = createSlice({
 });
 
 // Selectors
+export const selectIsSidebarOpen = (state) => state.task.isSidebarOpen;
 export const selectTotalTasks = (state) => state.task.tasks.length;
 export const selectCompletedTasks = (state) => state.task.tasks.filter((task) => task.completed).length;
 export const selectIncompleteTasks = (state) => state.task.tasks.filter((task) => !task.completed).length;
@@ -300,6 +305,8 @@ export const {
   toggleSidebar,
   toggleTaskDetail,
   setSelectedTask,
+  toggleOpen,
+  
 } = taskSlice.actions;
 
 export default taskSlice.reducer;
