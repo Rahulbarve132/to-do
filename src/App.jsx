@@ -3,6 +3,7 @@ import { Sidebar } from "./components/SideBar";
 import TodoList from "./components/todo-list";
 import TaskDetail from "./components/TaskDetails";
 import Header from "./components/Header";
+import mobileSidebar from "./components/mobileSideBar";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -14,10 +15,11 @@ function App() {
   return (
     <div className="flex h-full ">
       
-      {isSidebarOpen && <Sidebar />}
+      {isSidebarOpen &&  <><Sidebar /><mobileSidebar/></>}
+      
       <div className="w-full">
       <Header toggleSidebar={toggleSidebar}/>
-      <div className="flex w-full h-full">
+      <div className="flex sm:flex-row flex-col w-full h-full">
        
       <div className="flex-1">
         <TodoList toggleSidebar={toggleSidebar} />

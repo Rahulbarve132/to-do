@@ -7,8 +7,7 @@ import {
   selectSelectedTask,
   deleteTask, 
   toggleComplete, 
-  toggleStar,
-  selectIsDarkMode
+  toggleStar 
 } from '../utils/TaskSlice';
 
 export default function TaskDetails() {
@@ -18,7 +17,6 @@ export default function TaskDetails() {
 
   const isOpen = useSelector(selectTaskDetail);
   const selectedTask = useSelector(selectSelectedTask);
-  const isDarkMode = useSelector(selectIsDarkMode);
 
   useEffect(() => {
     if (selectedTask) {
@@ -55,57 +53,61 @@ export default function TaskDetails() {
   if (!isOpen || !selectedTask) return null;
 
   return (
-    <div className={`w-80 text-sm shadow-md p-4 flex flex-col relative ${isDarkMode ? 'bg-[#2C2C2C] text-white' : 'bg-green-50 text-gray-900'}`}>
+    <div className="md:w-80 w-full  text-sm bg-green-50  shadow-md p-4 flex flex-col relative">
       {/* Task Header */}
-      <div className="flex items-center justify-between border-b pt-3 pb-3">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between border-b  pt-3 pb-3">
+        <div className="flex items-center gap-3 ">
           <input
             type="checkbox"
             checked={isChecked}
             onChange={handleToggleComplete}
-            className="w-5 h-5 accent-green-600 border-gray-300 rounded"
+            className="w-5 h-5 accent-green-600 border-gray-300 rounded focus:ring-green-500"
           />
-          <span className={`text-sm ${isChecked ? 'line-through text-gray-500' : isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          <span className={`text-sm ${isChecked ? 'line-through text-gray-500' : 'text-gray-900'}`}>
             {selectedTask.text}
           </span>
         </div>
         <button onClick={handleToggleStar}>
-          <Star className={`h-5 w-5 ${isStarred ? 'fill-yellow-400 text-yellow-400' : isDarkMode ? 'text-gray-300' : 'text-gray-500'}`} />
+          <Star className={`h-5 w-5 ${isStarred ? 'fill-yellow-400 text-yellow-400' : 'text-gray-500'}`} />
         </button>
       </div>
 
       {/* Task Actions */}
       <div className="mt-3 space-y-2">
-        <button className={`w-full flex items-center gap-3 p-2 rounded-lg ${isDarkMode ? 'text-white hover:bg-gray-700' : 'text-gray-900 hover:bg-gray-100'}`}>
+        <button className="w-full flex items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100">
           <Plus className="h-5 w-5" /> <span>Add Step</span>
         </button>
-        <button className={`w-full flex items-center gap-3 p-2 rounded-lg ${isDarkMode ? 'text-white hover:bg-gray-700' : 'text-gray-900 hover:bg-gray-100'}`}>
+        <button className="w-full flex items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100">
           <Bell className="h-5 w-5" /> <span>Set Reminder</span>
         </button>
-        <button className={`w-full flex items-center gap-3 p-2 rounded-lg ${isDarkMode ? 'text-white hover:bg-gray-700' : 'text-gray-900 hover:bg-gray-100'}`}>
+        <button className="w-full flex items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100">
           <Calendar className="h-5 w-5" /> <span>Add Due Date</span>
         </button>
-        <button className={`w-full flex items-center gap-3 p-2 rounded-lg ${isDarkMode ? 'text-white hover:bg-gray-700' : 'text-gray-900 hover:bg-gray-100'}`}>
+        <button className="w-full flex items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100">
           <RefreshCw className="h-5 w-5" /> <span>Repeat</span>
         </button>
       </div>
 
       {/* Task Notes */}
-      <div className={`mt-3 border-t pt-3 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-900'}`}>Add Notes</div>
+      <div className="mt-3 border-t pt-3 text-gray-400 text-sm">Add Notes</div>
 
       {/* Footer */}
-      <div className={`mt-auto flex justify-between items-center text-sm border-t pt-3 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-        <button
-          onClick={handleClose}
-          className="top-2 right-2 p-2 rounded-full hover:bg-gray-100"
-        >
-          <X className={`h-5 w-5 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`} />
-        </button>
+
+      <div className="mt-auto flex justify-between items-center text-gray-500 text-sm border-t pt-3">
+      <button
+        onClick={handleClose}
+        className=" top-2 right-2 p-2 rounded-full hover:bg-gray-100"
+      >
+        <X className="h-5 w-5 text-gray-500" />
+      </button>
         <span>Created Today</span>
         <button onClick={handleDeleteTask} className="text-red-500 hover:bg-red-100 p-2 rounded-lg">
           <Trash2 className="h-5 w-5" />
         </button>
       </div>
+
+      {/* Close Button */}
+      
     </div>
   );
 }

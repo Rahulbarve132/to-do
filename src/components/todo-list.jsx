@@ -67,10 +67,6 @@ export default function TodoList({ toggleSidebar }) {
     dispatch(toggleStar(taskId));
   };
 
-  const handleDateSelect = (date) => {
-    setDueDate(date);
-    setShowCalendar(false);
-  };
 
   function handleTaskSelected(task) {
     dispatch(setSelectedTask(task));
