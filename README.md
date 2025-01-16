@@ -95,6 +95,13 @@ yarn lint
 `https://to-do-git-master-rahul-barves-projects.vercel.app/`
 
 
+## Features 
+Add Task
+View Tasks
+Delete Task
+Task Prioritization
+Persistent Storage
+
 
 ## Contributing
 Feel free to fork the repository and submit pull requests for improvements.
