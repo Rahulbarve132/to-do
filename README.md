@@ -74,6 +74,12 @@ or
 yarn lint
 ```
 
+## Running the Web Application
+
+1. Open the application in your browser at `http://localhost:5173/` (or the deployed live link below).
+2. **Login:** Enter your name, email, and password to access the application. Any credentials can be used to log in.
+3. After logging in, you can start adding, viewing, and managing your tasks.
+
 ## Technologies Used
 - React
 - Redux Toolkit
@@ -90,18 +96,15 @@ yarn lint
 ![Task Manager Screenshot](src/assets/image3.png)
 ![Task Manager Screenshot](src/assets/image.png)
 
-
-## Live Link Of Webiste
+## Live Link of Website
 `https://to-do-git-master-rahul-barves-projects.vercel.app/`
 
-
-## Features 
-Add Task
-View Tasks
-Delete Task
-Task Prioritization
-Persistent Storage
-
+## Features
+- Add Task
+- View Tasks
+- Delete Task
+- Task Prioritization
+- Persistent Storage
 
 ## Contributing
 Feel free to fork the repository and submit pull requests for improvements.
