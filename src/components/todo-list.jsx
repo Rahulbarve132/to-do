@@ -134,9 +134,9 @@ export default function TodoList({ toggleSidebar }) {
             />
             <div className="flex items-center justify-between mt-2">
               <div className="flex items-center gap-4">
-                <Bell className="h-5 w-5 cursor-pointer" onClick={() => setShowClock((prev) => !prev)} />
-                <RefreshCw className="h-5 w-5 cursor-pointer" onClick={() => setRepeat((prev) => !prev)} />
-                <Calendar className="h-5 w-5 cursor-pointer" onClick={() => setShowCalendar((prev) => !prev)} />
+                <Bell className="h-5 w-5 cursor-pointer" />
+                <RefreshCw className="h-5 w-5 cursor-pointer"  />
+                <Calendar className="h-5 w-5 cursor-pointer" />
               </div>
               <button 
                 onClick={handleAddTask} 
