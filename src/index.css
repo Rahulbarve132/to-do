@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+--rdd-week_number-width
+--rdp-week_number-height
+
 /* Sidebar Opening (Enter) */
 .sidebar-enter {
     transform: translateX(-100%); /* Start off-screen */

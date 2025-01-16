@@ -12,13 +12,13 @@ import {
   selectIsAssignedToMe,
   setActiveTask,
 } from "../utils/TaskSlice";
-import { Star, Calendar, UserSquare2, Plus, CircleAlert, ClipboardList } from "lucide-react";
+import { Star, Calendar, UserSquare2, Plus, CircleAlert, ClipboardList, X } from "lucide-react";
 import profile from "../assets/Profile.png";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export function mobileSidebar() {
+export function MobileSidebar({ toggleSidebar }) {
   const dispatch = useDispatch();
   const totalTasks = useSelector(selectTotalTasks) || 0;
   const completedTasks = useSelector(selectCompletedTasks) || 0;
@@ -45,11 +45,17 @@ export function mobileSidebar() {
   const activeClass = `${isDarkMode ? 'bg-[#3A3A3A]' : 'bg-green-50 text-green-600'}`;
 
   return (
-    <div className={`w-64 h-full p-4 flex flex-col ${isDarkMode ? 'bg-[#2C2C2C] text-white' : 'bg-[#EEF6EF] text-black'}`}>
+    <div className={`w-full h-full p-4 flex flex-col ${isDarkMode ? 'bg-[#2C2C2C] text-white' : 'bg-[#EEF6EF] text-black'}`}>
       <div className="flex flex-col items-center gap-3 mb-6">
         <div className="w-24 h-24 rounded-full overflow-hidden">
           <img src={profile} alt="Profile" className="w-full h-full object-cover" />
         </div>
+        <button
+          onClick={toggleSidebar}
+          className="top-2 right-2 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
+        >
+          <X className="h-5 w-5" />
+        </button>
         <div>
           <p className="font-medium">Hey, ABCD</p>
         </div>
@@ -106,4 +112,4 @@ export function mobileSidebar() {
   );
 }
 
-export default mobileSidebar;
+export default MobileSidebar;

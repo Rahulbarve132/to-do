@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { Bell, Calendar, Plus, RefreshCw, Star, Trash2, X } from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux';
 import "react-day-picker/style.css";
-
-import { 
-  toggleTaskDetail, 
+import {
+  toggleTaskDetail,
   selectTaskDetail,
   selectSelectedTask,
-  deleteTask, 
-  toggleComplete, 
-  toggleStar 
+  deleteTask,
+  toggleComplete,
+  toggleStar,
+  selectIsDarkMode
 } from '../utils/TaskSlice';
 import { DayPicker } from 'react-day-picker';
 
@@ -17,10 +17,10 @@ export default function TaskDetails() {
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
   const [isStarred, setIsStarred] = useState(false);
-  const [showDatePicker, setShowDatePicker] = useState(false); // New state to toggle date picker
-
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const isOpen = useSelector(selectTaskDetail);
   const selectedTask = useSelector(selectSelectedTask);
+  const isDarkMode = useSelector(selectIsDarkMode);
   const [selected, setSelected] = useState();
 
   useEffect(() => {
@@ -60,10 +60,9 @@ export default function TaskDetails() {
   };
 
   if (!isOpen || !selectedTask) return null;
-  console.log(selected)
 
   return (
-    <div className="md:w-80 w-full text-sm bg-green-50 shadow-md  flex flex-col relative">
+    <div className={`md:w-80 w-full text-sm shadow-md flex flex-col relative ${isDarkMode ? 'bg-[#2C2C2C] text-white' : 'bg-green-50 text-gray-900'}`}>
       {/* Task Header */}
       <div className="flex items-center justify-between border-b px-4 pt-3 pb-3">
         <div className="flex items-center gap-3">
@@ -73,7 +72,7 @@ export default function TaskDetails() {
             onChange={handleToggleComplete}
             className="w-5 h-5 accent-green-600 border-gray-300 rounded focus:ring-green-500"
           />
-          <span className={`text-sm ${isChecked ? 'line-through text-gray-500' : 'text-gray-900'}`}>
+          <span className={`text-sm ${isChecked ? 'line-through text-gray-500' : ''}`}>
             {selectedTask.text}
           </span>
         </div>
@@ -84,50 +83,40 @@ export default function TaskDetails() {
 
       {/* Task Actions */}
       <div className="mt-3 space-y-2">
-        <button className="w-full flex px-4 items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+        <button className="w-full flex px-4 items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
           <Plus className="h-5 w-5" /> <span>Add Step</span>
         </button>
-        <button className="w-full flex px-4  items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+        <button className="w-full flex px-4 items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
           <Bell className="h-5 w-5" /> <span>Set Reminder</span>
         </button>
         <button
           onClick={handleToggleDatePicker}
-          className="w-full flex px-4  items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100"
+          className="w-full flex px-4 items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
         >
           <Calendar className="h-5 w-5" /> <span>Add Due Date</span>
         </button>
 
-        {/* Conditionally show Date Picker */}
         {showDatePicker && (
-  <div className="border rounded-lg w-fit px-1  bg-white shadow-md ">
-    <DayPicker
-      mode="single"
-      selected={selected}
-      onSelect={setSelected}
-      className="text-sm"  // Adjust text size
-    />
-  </div>
-)}
+          <div className="border rounded-lg w-fit bg-white dark:bg-gray-800 shadow-md">
+            <DayPicker mode="single" selected={selected} onSelect={setSelected} className="text-sm" />
+          </div>
+        )}
 
-
-        <button className="w-full px-4  flex items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+        <button className="w-full flex px-4 items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
           <RefreshCw className="h-5 w-5" /> <span>Repeat</span>
         </button>
       </div>
 
       {/* Task Notes */}
-      <div className="mt-3 border-t px-4  pt-3 text-gray-400 text-sm">Add Notes</div>
+      <div className="mt-3 border-t px-4 pt-3 text-gray-400 text-sm">Add Notes</div>
 
       {/* Footer */}
       <div className="mt-auto flex justify-between items-center text-gray-500 text-sm border-t pt-3">
-        <button
-          onClick={handleClose}
-          className="top-2 right-2 p-2 rounded-full hover:bg-gray-100"
-        >
-          <X className="h-5 w-5 text-gray-500" />
+        <button onClick={handleClose} className="top-2 right-2 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+          <X className="h-5 w-5" />
         </button>
         <span>Created Today</span>
-        <button onClick={handleDeleteTask} className="text-red-500 hover:bg-red-100 p-2 rounded-lg">
+        <button onClick={handleDeleteTask} className="text-red-500 hover:bg-red-100 dark:hover:bg-red-800 p-2 rounded-lg">
           <Trash2 className="h-5 w-5" />
         </button>
       </div>
