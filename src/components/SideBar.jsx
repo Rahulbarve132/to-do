@@ -1,6 +1,10 @@
-import React, { Profiler } from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Doughnut } from "react-chartjs-2";
+import {
+  selectTotalTasks,
+  selectCompletedTasks,
+} from "../utils/TaskSlice"; // Adjust the path as needed
 import {
   Star,
   Calendar,
@@ -8,32 +12,31 @@ import {
   Plus,
   CircleAlert,
   ClipboardList,
-  
 } from "lucide-react";
 
-import profile from "../assets/Profile.png"
-
-ChartJS.register(ArcElement, Tooltip, Legend);
-
-const data = {
-  datasets: [
-    {
-      data: [3, 40],
-      backgroundColor: ["rgba(20, 46, 21, 1)", "rgba(63, 145, 66, 1)"],
-      hoverOffset: 4,
-    },
-  ],
-};
+import profile from "../assets/Profile.png";
 
 export function Sidebar() {
+  const totalTasks = useSelector(selectTotalTasks);
+  const completedTasks = useSelector(selectCompletedTasks);
+  const incompleteTasks = totalTasks - completedTasks;
+
+  const data = {
+    datasets: [
+      {
+        data: [completedTasks, incompleteTasks],
+        backgroundColor: ["rgba(20, 46, 21, 1)", "rgba(63, 145, 66, 1)"],
+        hoverOffset: 4,
+      },
+    ],
+  };
+
   const buttonBaseClass =
     "flex items-center px-4 py-2 rounded-lg text-sm w-full hover:bg-gray-100 transition-colors";
 
   return (
-    <div className=" w-64 bg-[#EEF6EF] h-full
-     p-4 flex flex-col">
-      <div className="flex flex-col
-       items-center gap-3 mb-6">
+    <div className="w-64 bg-[#EEF6EF] h-full p-4 flex flex-col">
+      <div className="flex flex-col items-center gap-3 mb-6">
         <div className="w-24 h-24 rounded-full overflow-hidden">
           <img
             src={profile}
@@ -53,7 +56,7 @@ export function Sidebar() {
             All Tasks
           </button>
           <button className={`${buttonBaseClass} bg-green-50 text-green-600`}>
-            <Calendar  className="h-4 w-4 mr-3" />
+            <Calendar className="h-4 w-4 mr-3" />
             Today
           </button>
           <button className={buttonBaseClass}>
@@ -87,24 +90,23 @@ export function Sidebar() {
                 <CircleAlert color="#BDBDBD" size={20} />
               </div>
             </div>
-            <div className="text-3xl font-bold">11</div>
+            <div className="text-3xl font-bold">{totalTasks}</div>
           </div>
         </div>
         {/* Doughnut Chart */}
-        <div className="">
+        {/* <div className="">
           <Doughnut data={data} />
-        </div>
+        </div> */}
         <div className="bottom-div flex gap-4 text-sm my-2">
-            <div className="flex items-center gap-1">
-            <div class="w-2 h-2 rounded-full bg-[#3F9142]"></div>
-            <div>Panding</div>
-            </div>
-           
-            <div className="flex items-center gap-1">
-            <div class="w-2 h-2 rounded-full bg-[#142E15]"></div>
-            <div>Done</div>
-            </div>
+          <div className="flex items-center gap-1">
+            <div className="w-2 h-2 rounded-full bg-[#3F9142]"></div>
+            <div>Pending</div>
+          </div>
 
+          <div className="flex items-center gap-1">
+            <div className="w-2 h-2 rounded-full bg-[#142E15]"></div>
+            <div>Done</div>
+          </div>
         </div>
       </div>
     </div>

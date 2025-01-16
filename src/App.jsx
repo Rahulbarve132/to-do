@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Sidebar } from "./components/SideBar";
 import TodoList from "./todo-list";
+import TaskDetail from "./components/TaskDetails";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -15,6 +16,8 @@ function App() {
       <div className="flex-1">
         <TodoList toggleSidebar={toggleSidebar} />
       </div>
+
+      <TaskDetail/>
     </div>
   );
 }
