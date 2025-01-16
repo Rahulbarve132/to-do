@@ -83,26 +83,26 @@ export default function TaskDetails() {
 
       {/* Task Actions */}
       <div className="mt-3 space-y-2">
-        <button className="w-full flex px-4 items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+        <button className="w-full flex px-4 items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-300">
           <Plus className="h-5 w-5" /> <span>Add Step</span>
         </button>
-        <button className="w-full flex px-4 items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+        <button className="w-full flex px-4 items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-300">
           <Bell className="h-5 w-5" /> <span>Set Reminder</span>
         </button>
         <button
           onClick={handleToggleDatePicker}
-          className="w-full flex px-4 items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+          className="w-full flex px-4 items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-300"
         >
           <Calendar className="h-5 w-5" /> <span>Add Due Date</span>
         </button>
 
         {showDatePicker && (
-          <div className="border rounded-lg w-fit bg-white dark:bg-gray-800 shadow-md">
+          <div className="border rounded-lg w-fit bg-white dark:text-black shadow-md">
             <DayPicker mode="single" selected={selected} onSelect={setSelected} className="text-sm" />
           </div>
         )}
 
-        <button className="w-full flex px-4 items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+        <button className="w-full flex px-4 items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-300">
           <RefreshCw className="h-5 w-5" /> <span>Repeat</span>
         </button>
       </div>
