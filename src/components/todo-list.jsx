@@ -37,8 +37,6 @@ export default function TodoList({ toggleSidebar }) {
   const [reminder, setReminder] = useState(null);
   const [repeat, setRepeat] = useState(false);
   const [dueDate, setDueDate] = useState(null);
-  const [showClock, setShowClock] = useState(false);
-  const [showCalendar, setShowCalendar] = useState(false);
 
   const handleAddTask = () => {
     if (newTask.trim()) {
@@ -148,6 +146,13 @@ export default function TodoList({ toggleSidebar }) {
             <div>
               <h2 className="text-sm font-medium mb-4">Important Tasks</h2>
               {renderTaskList(importantTasks)}
+            </div>
+          )}
+
+          {isToday &&(
+            <div>
+              <h2 className="text-sm font-medium mb-4">Todays Tasks</h2>
+              {renderTaskList(tasks)}
             </div>
           )}
 

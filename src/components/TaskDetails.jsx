@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Bell, Calendar, Plus, RefreshCw, Star, Trash2, X } from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux';
+import "react-day-picker/style.css";
+
 import { 
   toggleTaskDetail, 
   selectTaskDetail,
@@ -9,14 +11,17 @@ import {
   toggleComplete, 
   toggleStar 
 } from '../utils/TaskSlice';
+import { DayPicker } from 'react-day-picker';
 
 export default function TaskDetails() {
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
   const [isStarred, setIsStarred] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false); // New state to toggle date picker
 
   const isOpen = useSelector(selectTaskDetail);
   const selectedTask = useSelector(selectSelectedTask);
+  const [selected, setSelected] = useState();
 
   useEffect(() => {
     if (selectedTask) {
@@ -50,13 +55,18 @@ export default function TaskDetails() {
     dispatch(toggleTaskDetail());
   };
 
+  const handleToggleDatePicker = () => {
+    setShowDatePicker((prev) => !prev);
+  };
+
   if (!isOpen || !selectedTask) return null;
+  console.log(selected)
 
   return (
-    <div className="md:w-80 w-full  text-sm bg-green-50  shadow-md p-4 flex flex-col relative">
+    <div className="md:w-80 w-full text-sm bg-green-50 shadow-md  flex flex-col relative">
       {/* Task Header */}
-      <div className="flex items-center justify-between border-b  pt-3 pb-3">
-        <div className="flex items-center gap-3 ">
+      <div className="flex items-center justify-between border-b px-4 pt-3 pb-3">
+        <div className="flex items-center gap-3">
           <input
             type="checkbox"
             checked={isChecked}
@@ -74,40 +84,53 @@ export default function TaskDetails() {
 
       {/* Task Actions */}
       <div className="mt-3 space-y-2">
-        <button className="w-full flex items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+        <button className="w-full flex px-4 items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100">
           <Plus className="h-5 w-5" /> <span>Add Step</span>
         </button>
-        <button className="w-full flex items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+        <button className="w-full flex px-4  items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100">
           <Bell className="h-5 w-5" /> <span>Set Reminder</span>
         </button>
-        <button className="w-full flex items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+        <button
+          onClick={handleToggleDatePicker}
+          className="w-full flex px-4  items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100"
+        >
           <Calendar className="h-5 w-5" /> <span>Add Due Date</span>
         </button>
-        <button className="w-full flex items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+
+        {/* Conditionally show Date Picker */}
+        {showDatePicker && (
+  <div className="border rounded-lg w-fit px-1  bg-white shadow-md ">
+    <DayPicker
+      mode="single"
+      selected={selected}
+      onSelect={setSelected}
+      className="text-sm"  // Adjust text size
+    />
+  </div>
+)}
+
+
+        <button className="w-full px-4  flex items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100">
           <RefreshCw className="h-5 w-5" /> <span>Repeat</span>
         </button>
       </div>
 
       {/* Task Notes */}
-      <div className="mt-3 border-t pt-3 text-gray-400 text-sm">Add Notes</div>
+      <div className="mt-3 border-t px-4  pt-3 text-gray-400 text-sm">Add Notes</div>
 
       {/* Footer */}
-
       <div className="mt-auto flex justify-between items-center text-gray-500 text-sm border-t pt-3">
-      <button
-        onClick={handleClose}
-        className=" top-2 right-2 p-2 rounded-full hover:bg-gray-100"
-      >
-        <X className="h-5 w-5 text-gray-500" />
-      </button>
+        <button
+          onClick={handleClose}
+          className="top-2 right-2 p-2 rounded-full hover:bg-gray-100"
+        >
+          <X className="h-5 w-5 text-gray-500" />
+        </button>
         <span>Created Today</span>
         <button onClick={handleDeleteTask} className="text-red-500 hover:bg-red-100 p-2 rounded-lg">
           <Trash2 className="h-5 w-5" />
         </button>
       </div>
-
-      {/* Close Button */}
-      
     </div>
   );
 }
